@@ -1,0 +1,126 @@
+﻿@model AddQuestionModel
+
+@{
+    ViewData["Title"] = "Add Question";
+    SelectList listItems = new SelectList(ViewBag.QuesTypes, "Id", "Name");
+}
+
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Course</a>
+            <span>Edit Course</span>
+        </div>
+    </div>
+</div>
+
+<h1>Question</h1>
+
+<h4>Add Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <div class="form-group">
+            <label asp-for="qust_type" class="control-label"></label>
+            <select asp-for="qust_type" asp-items="listItems" id="QType" class="form-control" onchange="questionType()">
+                <option value="0" selected disabled>--Select Question Type--</option>
+            </select>
+            <p>
+                <a class="site-btn mt-3" asp-action="Create" asp-controller="QuestionType">Create Question Type</a>
+            </p>
+        </div>
+
+        <form asp-action="AddQuestion" id="TF" style="display:none">
+            
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Body" class="control-label"></label>
+                <input asp-for="Body" class="form-control" />
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-none">
+                <input asp-for="Answers" value="True False" class="form-control" />
+            </div>
+            
+            <div class="form-group row my-3">
+                <label class="control-label col-2">True</label>
+                <input class="col-1" type="radio" name="ModelAnswer" value="True" />
+                <label class="control-label col-2">False</label>
+                <input class="col-1" type="radio" name="ModelAnswer" value="False" />
+
+                <span asp-validation-for="ModelAnswer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="exam_id" value="@ViewBag.examID" hidden class="form-control" />
+                <input name="qust_type" id="QT1" hidden class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <input type="submit" value="Add Another Question" asp-route-newQ="true" class="btn btn-primary" />
+
+        </form>
+        
+        <form asp-action="AddQuestion" id="MCQ" style="display:none">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Body" class="control-label"></label>
+                <input asp-for="Body" class="form-control" />
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Answers" class="control-label"></label>
+                <input asp-for="Answers" class="form-control" />
+                <span asp-validation-for="Answers" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ModelAnswer" class="control-label"></label>
+                <input asp-for="ModelAnswer" class="form-control" />
+                <span asp-validation-for="ModelAnswer" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="exam_id" value="@ViewBag.examID" hidden class="form-control" />
+                <input name="qust_type" id="QT2" hidden class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+                <input type="submit" value="Add Another Question" asp-route-newQ="true" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function questionType() {
+            var QType = document.getElementById("QType").value;
+            console.log(QType)
+
+            if (QType == 1) {
+                document.getElementById("MCQ").style.display = "none";
+                document.getElementById("TF").style.display = "block";
+                document.getElementById("QT1").value = document.getElementById("QType").value;
+            }       
+            if (QType == 2) {
+                document.getElementById("MCQ").style.display = "block";
+                document.getElementById("TF").style.display = "none";
+                document.getElementById("QT2").value = document.getElementById("QType").value;
+            }
+        }
+    </script>
+}

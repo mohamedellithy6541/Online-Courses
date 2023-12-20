@@ -1,0 +1,67 @@
+﻿@model Dictionary<Course,int>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+@section css{
+        <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
+}
+
+<!-- Page info -->
+<div class="page-info-section set-bg" data-setbg="../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Category" asp-action="Index">Categories</a>
+            <span>Courses</span>
+        </div>
+    </div>
+</div>
+<!-- Page info end -->
+
+<h1 class="w-100 bg-light text-center p-5">Courses</h1>
+
+<section class="course-section spad pb-0">
+	<div class="course-warp">
+		<div class="row course-items-area">
+			<!-- course -->
+            @if (Model.Any())
+            {
+                @foreach (KeyValuePair<Course,int> course in Model)
+                {
+                    <div class="mix col-lg-3 col-md-4 col-sm-6 finance">
+                        <div class="course-item">
+                            
+                            <div class="course-info">
+                                <div class="course-thumb">
+                                    <div class="price">Price: @course.Key.price</div>
+                                </div>
+                                <div class="course-text">
+                                    <h5>@course.Key.Name</h5>
+                                    <p>@course.Key.Description</p>
+                                    <div class="students">@course.Value Students</div>
+                                    <div class="students">Duration: @course.Key.Duration</div>
+                                </div>
+                                <div class="course-author">
+                                    <div class="ca-pic set-bg" data-setbg="../images/@course.Key.Instructor?.ImageURL" ></div>
+                                    <p>Instructor: @course.Key.Instructor?.UserName</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-6 offset-3 me-3 mb-3 text-center">
+                    <h2>No Courses In This Category</h2>
+                </div>
+            }
+			
+			<!-- course -->
+		</div>
+	</div>
+</section>
+<!-- course section end -->
+
+

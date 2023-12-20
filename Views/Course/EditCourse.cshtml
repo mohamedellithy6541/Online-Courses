@@ -1,0 +1,83 @@
+﻿@model AddCourseModel
+
+@{
+    ViewData["Title"] = "EditCourse";
+    SelectList listItems = new SelectList(ViewBag.cats, "Id", "Name");
+}
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Course</a>
+            <span>Edit Course</span>
+        </div>
+    </div>
+</div>
+<h1 class="text-center my-4">EditCourse</h1>
+<div class="container text-center">
+    <hr />
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form asp-action="EditCourse">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade" class="control-label"></label>
+                <input asp-for="Grade" class="form-control" />
+                <span asp-validation-for="Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="categoryID" class="control-label"></label>
+                <select asp-for="categoryID" asp-items="listItems" class="form-control">
+                    <option value="0">--Select Course Category--</option>
+                </select>
+                <span asp-validation-for="categoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input name="id" type="number" value="@ViewBag.id" hidden class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (User.IsInRole("Instructor"))
+    {
+        <a asp-action="Home" asp-controller="Instructor">Back to List</a>
+    }
+    else
+    {
+    <a asp-action="Index">Back to List</a>
+    }
+</div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

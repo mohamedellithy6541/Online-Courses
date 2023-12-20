@@ -1,0 +1,71 @@
+﻿@model Lecture
+@{
+    ViewData["Title"] = "New";
+}
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-controller="Lecture" asp-action="Index">Lecture</a>
+            <span>New Lecture</span>
+        </div>
+    </div>
+</div>
+
+<h1>New</h1>
+<form method="post" asp-action="SaveNew">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+    <div>
+        <label asp-for="Name">
+            Lecture Name
+        </label>
+        <input class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+    </div>
+
+    <div>
+        <label asp-for="Description">
+            Description
+        </label>
+        <input class="form-control" asp-for="Description" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+
+    </div>
+
+    <div>
+        <label asp-for="Duration">
+            Duration
+        </label>
+        <input class="form-control" asp-for="Duration" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+
+    </div>   
+        <input class="form-control" hidden asp-for="ins_id" value="@ViewBag.id"/>
+        <input class="form-control" hidden asp-for="crs_id" value="@ViewBag.crs_id" />
+
+
+    @*  <div>
+    <label asp-for="ins_id">Instructor</label>
+    <select class="form-control" asp-for="ins_id">
+    @foreach (var item in (List<Instructor>)ViewBag.Instructor)
+    {
+    <option value="@item.Id">@item.Name</option>
+    }
+    </select>
+    </div>*@
+
+    <input type="submit" class="btn btn-success" value="Create" />
+
+
+
+</form>
+<a asp-action="Index" asp-controller="Lecture" class="btn btn-danger">Back To List</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

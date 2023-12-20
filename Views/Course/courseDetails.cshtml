@@ -1,0 +1,66 @@
+﻿@model onlineCourses.Models.Course;
+@{
+	ViewData["Title"] = "courseDetails";
+	string InsName;
+}
+
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+	<div class="container">
+		<div class="site-breadcrumb">
+			<a asp-controller="Home" asp-action="Index">Course</a>
+			<span>Course Details</span>
+		</div>
+	</div>
+</div>
+
+<h1 class="text-center p-3 bg-light">courseDetails</h1>
+
+<table class="table table-bordered text-center">
+	<tr>
+		<th>ID</th>
+		<th>name</th>
+		<th>Instructor</th>
+		<th>Title</th>
+		<th>Description</th>
+		<th>Price</th>
+		<th>Degree</th>
+		<th>Duration</th>
+		<th>Created Date</th>
+		<th>Lecture</th>
+		<th>Exam</th>
+		@if(User.IsInRole("Instructor"))
+		{
+		<th>Students Enrolled</th>
+		<th>Actions</th>
+		}
+	</tr>
+	<tr>
+		<td>@Model.Id</td>
+		<td>@Model.Name</td>
+		<td>@Model.Instructor.UserName</td>
+		<td>@Model.Title</td>
+		<td>@Model.Description</td>
+		<td>@Model.price</td>
+		<td>@Model.Grade</td>
+		<td>@Model.Duration</td>
+		<td>@Model.Created</td>
+		<td><a class="btn btn-outline-primary" asp-action="Index" asp-controller="Lecture" asp-route-id="@Model.Id">Show All</a></td>
+		<td><a class="btn btn-outline-primary" asp-action="Index" asp-controller="Exam" asp-route-crs_id="@Model.Id">Show</a></td>
+		@if (User.IsInRole("Instructor"))
+		{
+		<td>@ViewBag.Count</td>
+		<td>
+		<a class="btn btn-danger" asp-action="EditCourse" asp-controller="Course" asp-route-id="@Model.Id">Edit</a>
+
+		</td>
+		}
+	</tr>
+</table>
+@if (User.IsInRole("Instructor"))
+{
+	<a class="btn btn-outline-primary text-center d-block" asp-action="home" asp-controller="Instructor"> Go Back <i class="bi bi-arrow-return-left"></i></a>
+
+}else
+{
+<a class="btn btn-outline-primary text-center d-block" asp-action="index"> Go Back <i class="bi bi-arrow-return-left"></i></a>
+}

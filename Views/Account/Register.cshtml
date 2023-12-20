@@ -1,0 +1,92 @@
+﻿@model onlineCourses.Data.ViewModels.RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+}
+<!-- Page info -->
+<div class="page-info-section set-bg" data-setbg="../SiteImages/page-bg/3.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-action="Index" asp-controller="Home">Home</a>
+            <span>Register</span>
+        </div>
+    </div>
+</div>
+<!-- Page info end -->
+
+<h2 class="text-center">Register</h2>
+
+<!-- Page -->
+<section class="contact-page spad pb-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form-warp">
+                    <div class="section-title text-white text-left">
+                        <h2>Sign Up</h2>
+                    </div>
+                    <form asp-action="Register" method="post" enctype="multipart/form-data" class="contact-form">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input asp-for="UserName" class="form-control" value="" placeholder="Username" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Age" class="form-control" value="" placeholder="Age"/>
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Address" class="form-control" placeholder="Address"/>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <select asp-for="Gender">
+                                <option value="M" selected>Male</option>
+                                <option value="F" selected>Female</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Email" class="form-control" placeholder="Email"/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Phone"/>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Password" class="form-control" placeholder="Password"/>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password"/>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="formFile" class="form-label">Photo</label>
+                            <input class="form-control" type="file" id="formFile" name="UploadedImage" accept="image/*">
+
+                            <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="radio" id="student" name="role" value="Student" checked />
+                            <label class="btn" for="student">Student</label>
+
+                            <input type="radio" id="instructor" name="role" value="Instructor" />
+                            <label class="btn" for="instructor">Instructor</label>
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Register" class="site-btn" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page end -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

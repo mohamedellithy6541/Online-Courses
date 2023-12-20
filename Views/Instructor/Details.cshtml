@@ -1,0 +1,37 @@
+﻿@model onlineCourses.Models.Instructor;
+@{
+	ViewData["Title"] = "Your Details";
+}
+
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+	<div class="container">
+		<div class="site-breadcrumb">
+			<a asp-controller="Home" asp-action="Index">Instructor</a>
+			<span>Instructor Details</span>
+		</div>
+	</div>
+</div>
+
+<h1 class="text-center p-3 bg-light">My Details</h1>
+
+<table class="table table-bordered text-center">
+	<tr>
+		<th>name</th>
+		<th>Age</th>
+		<th>Gender</th>
+		<th>Address</th>
+		<th>Phone Number</th>
+		<th>Email</th>
+	</tr>
+	<tr>
+		<td>@Model.UserName</td>
+		<td>@Model.Age</td>
+		<td>@Model.Gender</td>
+		<td>@Model.Address</td>
+		<td>@Model.PhoneNumber</td>
+		<td>@Model.Email</td>
+	</tr>
+</table>
+	<a class="btn btn-outline-primary text-center d-block" asp-action="home" asp-controller="Instructor"> My Courses <i class="bi bi-arrow-return-left"></i></a>
+
+

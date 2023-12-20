@@ -1,0 +1,42 @@
+﻿@model Exam
+@{
+    ViewData["title"] = "Exam";
+}
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Course</a>
+            <span>Exam</span>
+        </div>
+    </div>
+</div>
+@if(Model != null)
+{
+<h1>@Model.Name Exam</h1>
+
+<h4>Duration : @Model.Duration Minutes</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+
+    @foreach(Question question in ViewBag.Questions)
+    {
+        <div class="col-lg-6 my-4">
+        <h3>@question.QuestionType.Name</h3>
+        <hr/>
+        <h5>@question.Body</h5>
+                    <label class="control-label col-2">True</label>
+                    <input class="col-1" type="radio" name="@question.Id" value="True" />
+                    <label class="control-label col-2">False</label>
+                    <input class="col-1" type="radio" name="@question.Id" value="False" />
+        </div>
+    }
+
+        </div>
+        <a class="btn btn-danger text-center" asp-action="courseDetails" asp-controller="Course" asp-route-id="@Model.crs_id">Submit</a>
+    </div>
+}
+else
+{
+<a class="btn btn-outline-danger text-center d-block my-5" asp-action="AddExam"> Add Exam</a>
+}

@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - onlineCourses</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/onlineCourses.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/owl.carousel.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SiteImages" asp-append-version="true" />
+    @RenderSection("css", false)
+</head>
+<body>
+    <header class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <!--<a href="" class="site-btn header-btn">Login</a>-->
+                    <nav class="main-menu d-flex justify-content-between">
+                        <ul>
+                            <li>
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            @if (!User.IsInRole("Instructor"))
+                            {
+                            <li>
+                                <a asp-area="" asp-controller="Course" asp-action="Index">Courses</a>
+                            </li>      
+                            }
+                            <li>
+                                <a asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                            </li>
+                            @if(User.IsInRole("Instructor"))
+                            {
+                            <li>
+                                <a asp-area="" asp-controller="Instructor" asp-action="Details" >MyProfile</a>
+                                </li>
+                            }else if (User.IsInRole("Student"))
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="Student" asp-action="Details" asp-route-Name="@User.Identity.Name">MyProfile</a>
+                                </li>
+                            }
+                        </ul>
+                        
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-md-6 d-flex justify-content-end">
+                    <ul class="d-flex justify-content-evenly">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="me-2">
+                                <a class="site-btn header-btn" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+
+                            <li>
+                                <a class="site-btn header-btn" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="site-btn header-btn" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+        </div>
+    </header>
+    
+    <main role="main" class="pb-3">
+        <!-- Page Preloder -->
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
+        @RenderBody()
+    </main>
+    
+
+    <!-- footer section -->
+    <footer class="footer-section spad pb-0">
+        <div class="footer-top">
+            <div class="footer-warp">
+                <div class="row">
+                    <div class="widget-item">
+                        <h4>Contact Info</h4>
+                        <ul class="contact-list">
+                            <li>1481 Creekside Lane <br>Avila Beach, CA 931</li>
+                            <li>+53 345 7953 32453</li>
+                            <li>yourmail@gmail.com</li>
+                        </ul>
+                    </div>
+                    <div class="widget-item">
+                        <h4>Engeneering</h4>
+                        <ul>
+                            <li><a href="">Applied Studies</a></li>
+                            <li><a href="">Computer Engeneering</a></li>
+                            <li><a href="">Software Engeneering</a></li>
+                            <li><a href="">Informational Engeneering</a></li>
+                            <li><a href="">System Engeneering</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget-item">
+                        <h4>Graphic Design</h4>
+                        <ul>
+                            <li><a href="">Applied Studies</a></li>
+                            <li><a href="">Computer Engeneering</a></li>
+                            <li><a href="">Software Engeneering</a></li>
+                            <li><a href="">Informational Engeneering</a></li>
+                            <li><a href="">System Engeneering</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget-item">
+                        <h4>Development</h4>
+                        <ul>
+                            <li><a href="">Applied Studies</a></li>
+                            <li><a href="">Computer Engeneering</a></li>
+                            <li><a href="">Software Engeneering</a></li>
+                            <li><a href="">Informational Engeneering</a></li>
+                            <li><a href="">System Engeneering</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget-item">
+                        <h4>Newsletter</h4>
+                        <form class="footer-newslatter">
+                            <input type="email" placeholder="E-mail">
+                            <button class="site-btn">Subscribe</button>
+                            <p>*We don’t spam</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-warp">
+                <ul class="footer-menu">
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+                <div class="copyright">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer section end -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/circle-progress.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/map.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

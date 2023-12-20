@@ -1,0 +1,11 @@
+﻿.category{
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 1s;
+    max-width: 30%;
+}
+
+.actions i{
+    color: darkblue;
+    font-size: 20px;
+}

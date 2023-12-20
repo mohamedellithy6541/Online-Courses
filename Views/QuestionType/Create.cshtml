@@ -1,0 +1,53 @@
+﻿@model onlineCourses.Models.QuestionType
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Page info -->
+<div class="page-info-section set-bg" data-setbg="../SiteImages/page-bg/5.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-action="Index" asp-controller="Home">Home</a>
+            <span>Categories</span>
+        </div>
+    </div>
+</div>
+<!-- Page info end -->
+
+<h1 class="text-center">Create Question Type</h1>
+
+
+<section class="contact-page spad pb-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form-warp">
+                    <div class="section-title text-white text-left">
+                        <h2>Create Category</h2>
+                    </div>
+                    <form asp-action="Create" method="post" class="contact-form">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input asp-for="Name" class="form-control" value="" placeholder="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="site-btn" />
+                        </div>
+                        <div>
+                            <a class="site-btn btn-dark mt-3" asp-action="AddQuestion" asp-controller="Question">Back to Add Question Page</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page end -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,98 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Index";
+
+    SelectList listItems = new SelectList(ViewBag.cats, "Id", "Name");
+
+}
+<!-- Page info -->
+<div class="page-info-section set-bg" data-setbg="../SiteImages/page-bg/1.jpg">
+	<div class="container">
+		<div class="site-breadcrumb">
+			<a asp-controller="Home" asp-action="Index">Home</a>
+			<span>Courses</span>
+		</div>
+	</div>
+</div>
+<!-- Page info end -->
+	<h1 class="w-100 bg-light text-center p-5">Courses</h1>
+	<div>
+		<label class="control-label">Category</label>
+	<select id="selectOpts" asp-items="listItems" class="form-control" onchange="getCoursesByCatID()">
+			<option value="0">--Select Course Category--</option>
+		</select>
+	</div>
+@if (User.IsInRole("Instructor"))
+{
+<a class="btn btn-outline-primary text-center d-block" asp-action="NewCourse"> Add Course</a>
+}
+	<section id="MainSection">
+	<table class="table table-bordered text-center">
+		<thead>
+		<tr>
+			<th>name</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Degree</th>
+			<th>Action</th>
+		</tr>
+		</thead>
+		<tbody id="tableBody">
+	@foreach (var crs in Model)
+	{
+		<tr>
+			<td>@crs.Name</td>
+			<td>@crs.Title</td>
+			<td>@crs.Description</td>
+			<td>@crs.Grade</td>
+				<td>
+						<a asp-action="CourseDetails" asp-route-id="@crs.Id" title="Course Details"><i class="bi bi-eye-fill"></i></a>
+						@if (User.IsInRole("Instructor"))
+						{
+					        <a asp-action="DeleteCourse" asp-route-id="@crs.Id" title="Remove Course"><i class="bi bi-trash3-fill text-danger"></i></a>
+							<a asp-action="EditCourse" asp-route-id="@crs.Id" title="Edit Course"><i class="bi bi-pencil-square text-warning"></i></a>
+						}
+						else
+						{
+						<a asp-action="AddCourse" asp-controller="Student" asp-route-courseid="@crs.Id" title="Enroll"><i class="bi bi-train-lightrail-front-fill text-secondary"></i></a>
+							
+						}
+
+				</td>
+		</tr>
+	}
+		</tbody>
+	</table>
+	</section>
+@section Scripts{
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        var result2 = "";
+        function getCoursesByCatID() {
+            let tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            let catID = document.getElementById("selectOpts").value;
+            $.ajax(
+                {
+                    url: "/Course/getCoursesByCategory?CatID=" + catID,
+                    success: (result) => {
+                        for (let crs of result) {
+                            var cont = "";
+                            cont += "<tr>"
+                                + "<td>" + crs.name + "</td>"
+                                + "<td>" + crs.title + "</td>"
+                                + "<td>" + crs.description + "</td>"
+                                + "<td>" + crs.grade + "</td>"
+                                + "<td>"
+                                + "<a asp-action='CourseDetails' asp-route-id=" + crs.Id + "title = 'Course Details'> <i class='bi bi-eye-fill text-primary'> </i></a>"
+                                + "<a asp-action='EditCourse' asp-route-id=" + crs.Id + "title = 'Edit Course'> <i class='bi bi-pencil-square text-warning'> </i></a>"
+                                + "<a asp-action='DeleteCourse' asp-route-id=" + crs.Id + "title = 'Remove Course'> <i class='bi bi-trash3-fill text-danger'> </i></a>"
+                                + "</td>"
+                                + "</tr>";
+                            tableBody.innerHTML += cont;
+                        }
+                    }
+                });
+        }
+    </script>
+	}

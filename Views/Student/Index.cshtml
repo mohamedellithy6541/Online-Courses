@@ -1,0 +1,57 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Course</a>
+            <span>Edit Course</span>
+        </div>
+    </div>
+</div>
+
+@if (Model!= null)
+{
+
+        <table class="table table-bordered table-striped  table-hover mt-3 text-center">
+            <tr class="bg-black text-light">
+                <td>@Html.DisplayNameFor(d=>d.UserName)</td>
+                <td>@Html.DisplayNameFor(e=>e.Age)</td>
+                <td>@Html.DisplayNameFor(e=>e.Address)</td>
+                <td>@Html.DisplayNameFor(d=>d.PhoneNumber)</td>
+                <td>
+                @Html.DisplayNameFor(d=>d.ImageURL)
+                </td>
+                <td>@Html.DisplayNameFor(d=>d.Email)</td>
+               
+                <td>Details</td>
+               
+            </tr>
+
+                    <tr>
+                        <td> @Model.UserName</td>
+                        <td> @Model.Age </td>
+                        <td> @Model.Address </td>
+                        <td> @Model.PhoneNumber </td>
+                        <td> <img src="~/Images/@Model.ImageURL" class="img-fluid rounded " width="30" height="30" alt="Student images" /> </td>
+                        <td> @Model.Email</td>
+                        <td>
+                            <a class="btn btn-success" asp-area="" asp-controller="Student" asp-action="Details" asp-route-Name="@User.Identity.Name">
+                                Details
+                                <i class="fas fa-eye"> </i>
+                               
+                            </a>
+                        </td>
+                    </tr>
+        </table>
+}
+else
+{
+        <div class="m-3 alert-warning ">
+            <h2>No Students  less ! </h2>
+        </div>
+}
+
+

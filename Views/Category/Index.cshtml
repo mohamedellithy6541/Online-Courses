@@ -1,0 +1,88 @@
+﻿@model IEnumerable<onlineCourses.Models.Category>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Instructor> userManager
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+@section css{
+    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
+}
+<!-- Page info -->
+<div class="page-info-section set-bg" data-setbg="../SiteImages/page-bg/1.jpg">
+    <div class="container">
+        <div class="site-breadcrumb">
+            <a asp-action="Index" asp-controller="Home">Home</a>
+            <span>Categories</span>
+        </div>
+    </div>
+</div>
+<!-- Page info end -->
+@if(User.Identity.IsAuthenticated && User.IsInRole("Instructor"))
+{
+    <p class="text-center">
+        <a class="site-btn mt-3" asp-action="Create">Create New Category</a>
+    </p>
+}
+
+<section class="categories-section spad">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Course Categories</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+        </div>
+        <div class="row justify-content-center">
+            <!-- categorie -->
+            @foreach (Category category in Model)
+            {
+                <div class="category col-lg-4 col-md-6">
+                    <div class="categorie-item">
+                        <div class="ci-text">
+                            <h5 name="categoryName">@category.Name</h5>
+                            
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
+                            <span>@ViewBag.coursesCount[category.Name] Courses</span>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Instructor"))
+                            {
+                                <div class="actions d-flex justify-content-evenly">
+                                    <a asp-action="Edit" asp-route-Id="@category.Id">
+                                        <i class="bi bi-pencil-square btn btn-outline-warning" asp-action="Edit"></i>
+                                    </a>
+
+                                    <a asp-action="Delete" asp-route-Id="@category.Id">
+                                        <i class="bi bi-trash3 bg-danger btn btn-outline-danger" asp-action="Delete"></i>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script>
+        $(".category").click(function(event){
+            let categoryName = $(event.target).closest('.category').find('h5').text();
+
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "Category/Courses",
+                data: { categoryName: categoryName },
+                success: function (arg) {
+                    window.location = "Category/Courses?categoryName=" + categoryName;
+                },
+                error: function (xhr) {
+                    console.log( xhr);  //error occurred
+                    
+                }
+            });
+            //window.location.pathname = "Category/Courses";
+        });
+    </script>
+}

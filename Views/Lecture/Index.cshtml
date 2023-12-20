@@ -1,0 +1,46 @@
+﻿@model List<Lecture>
+@{
+	ViewData["Title"] = "Index";
+}
+<div class="page-info-section set-bg" data-setbg="../../SiteImages/page-bg/1.jpg">
+	<div class="container">
+		<div class="site-breadcrumb">
+			<a asp-controller="Course" asp-action="Index">Home</a>
+			<span>Lectures</span>
+		</div>
+	</div>
+</div>
+
+<h1 class="vw-100 bg-light text-center p-5">Lectures</h1>
+@if(User.IsInRole("Instructor"))
+{
+<a asp-action="New" asp-controller="Lecture" asp-route-crs_id="@ViewBag.crs_id" class="btn btn-success">New</a>
+}
+
+<table class="table table-bordered text-center">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>Description</th>
+		<th>Duration</th>
+		<th>Actions</th>
+	</tr>
+
+	@foreach (Lecture lec in Model)
+	{
+		<tr>
+			<td>@lec.Id</td>
+			<td>@lec.Name</td>
+			<td>@lec.Description</td>
+			<td>@lec.Duration</td>
+			@if (User.IsInRole("Instructor"))
+			{
+			<td>
+					<a asp-action="Edit" asp-controller="Lecture" asp-route-id="@lec.Id" asp-route-crs_id="@lec.crs_id" class="btn btn-primary">Edit</a>
+					<a asp-action="Delete" asp-controller="Lecture" asp-route-id="@lec.Id" asp-route-crs_id="@lec.crs_id" class="btn btn-danger">Delete</a>
+		   </td>				
+			}
+	</tr>
+	}
+</table>
+
